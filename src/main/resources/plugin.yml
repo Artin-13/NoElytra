@@ -1,10 +1,5 @@
 name: NoElytra
 main: net.artin13.noelytra.NoElytra
 version: 1.0
-commands:
-  CloseElytra:
-    description: h
-    usage: /<command>
-  OpenElytra:
-    description: h
-    usage: /<command>
+description: Disables the use of elytra outside of the end dimension.
+author: Artin13

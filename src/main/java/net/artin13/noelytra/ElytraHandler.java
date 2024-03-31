@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import java.util.Arrays;
 
 public class ElytraHandler {
-    public static void CloseElytra(Player player){
+    public static void CloseElytra(Player player) {
         Inventory inventory = player.getInventory();
         Boolean hasElytra = false;
         // Loop through the player's inventory
@@ -26,29 +26,32 @@ public class ElytraHandler {
                 inventory.setItem(i, leatherChestplate);
                 leatherChestplate = inventory.getItem(i);
                 ItemMeta meta = leatherChestplate.getItemMeta();
+
                 // Transfer enchantments
                 for (Enchantment enchantment : item.getEnchantments().keySet()) {
                     int level = item.getEnchantmentLevel(enchantment);
                     meta.addEnchant(enchantment, level, true);
                 }
+
                 // Get and transfer durability
                 if (meta instanceof Damageable) {
                     ((Damageable) meta).setDamage(((Damageable) elytrameta).getDamage());
                     meta.setUnbreakable(true);
                 }
+
+                // Set color, name, and lore
                 ((LeatherArmorMeta) meta).setColor(org.bukkit.Color.GRAY);
-                // Set display name
                 meta.setDisplayName("§8Closed Elytra");
-                meta.setLore(Arrays.asList("Elytra are unusable in this dimension,","Enter The End to reopen",String.format("§fDurability: %s/432",432-((Damageable) elytrameta).getDamage())));
+                meta.setLore(Arrays.asList("Elytra are unusable in this dimension,", "Enter The End to reopen", String.format("§fDurability: %s/432", 432 - ((Damageable) elytrameta).getDamage())));
                 leatherChestplate.setItemMeta(meta);
             }
         }
-        if(hasElytra) {
+        if (hasElytra) {
             player.sendMessage("Your elytra have been closed.");
         }
     }
 
-    public static void OpenElytra(Player player){
+    public static void OpenElytra(Player player) {
         Inventory inventory = player.getInventory();
         Boolean hasElytra = false;
         // Loop through the player's inventory
@@ -57,11 +60,12 @@ public class ElytraHandler {
             if (item != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().get(0).equals("Elytra are unusable in this dimension,")) {
                 hasElytra = true;
                 ItemMeta leathermeta = item.getItemMeta();
-                // Create a leather chestplate and transfer properties
+                // Create elytra and transfer properties
                 ItemStack elytra = new ItemStack(Material.ELYTRA, item.getAmount());
                 inventory.setItem(i, elytra);
                 elytra = inventory.getItem(i);
                 ItemMeta meta = elytra.getItemMeta();
+
                 // Transfer enchantments
                 for (Enchantment enchantment : item.getEnchantments().keySet()) {
                     if (enchantment.equals(Enchantment.MENDING) || enchantment.equals(Enchantment.DURABILITY)) {
@@ -78,7 +82,7 @@ public class ElytraHandler {
                 elytra.setItemMeta(meta);
             }
         }
-        if(hasElytra) {
+        if (hasElytra) {
             player.sendMessage("Your elytra have been opened!");
         }
     }
