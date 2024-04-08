@@ -1,5 +1,5 @@
 name: NoElytra
 main: net.artin13.noelytra.NoElytra
-version: 1.0
+version: 1.1.0
 description: Disables the use of elytra outside of the end dimension.
 author: Artin13
