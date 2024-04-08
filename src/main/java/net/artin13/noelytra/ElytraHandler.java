@@ -14,13 +14,13 @@ import java.util.Arrays;
 public class ElytraHandler {
     public static void CloseElytra(Player player) {
         Inventory inventory = player.getInventory();
-        Boolean hasElytra = false;
+        boolean hasElytra = false;
         // Loop through the player's inventory
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack item = inventory.getItem(i);
             if (item != null && item.getType() == Material.ELYTRA) {
                 hasElytra = true;
-                ItemMeta elytrameta = item.getItemMeta();
+                ItemMeta elytraMeta = item.getItemMeta();
                 // Create a leather chestplate and transfer properties
                 ItemStack leatherChestplate = new ItemStack(Material.LEATHER_CHESTPLATE, item.getAmount());
                 inventory.setItem(i, leatherChestplate);
@@ -35,14 +35,14 @@ public class ElytraHandler {
 
                 // Get and transfer durability
                 if (meta instanceof Damageable) {
-                    ((Damageable) meta).setDamage(((Damageable) elytrameta).getDamage());
+                    ((Damageable) meta).setDamage(((Damageable) elytraMeta).getDamage());
                     meta.setUnbreakable(true);
                 }
 
                 // Set color, name, and lore
                 ((LeatherArmorMeta) meta).setColor(org.bukkit.Color.GRAY);
                 meta.setDisplayName("§8Closed Elytra");
-                meta.setLore(Arrays.asList("Elytra are unusable in this dimension,", "Enter The End to reopen", String.format("§fDurability: %s/432", 432 - ((Damageable) elytrameta).getDamage())));
+                meta.setLore(Arrays.asList("Elytra are unusable in this dimension,", "Enter The End to reopen", String.format("§fDurability: %s/432", 432 - ((Damageable) elytraMeta).getDamage())));
                 leatherChestplate.setItemMeta(meta);
             }
         }
@@ -53,13 +53,13 @@ public class ElytraHandler {
 
     public static void OpenElytra(Player player) {
         Inventory inventory = player.getInventory();
-        Boolean hasElytra = false;
+        boolean hasElytra = false;
         // Loop through the player's inventory
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack item = inventory.getItem(i);
             if (item != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().get(0).equals("Elytra are unusable in this dimension,")) {
                 hasElytra = true;
-                ItemMeta leathermeta = item.getItemMeta();
+                ItemMeta leatherMeta = item.getItemMeta();
                 // Create elytra and transfer properties
                 ItemStack elytra = new ItemStack(Material.ELYTRA, item.getAmount());
                 inventory.setItem(i, elytra);
@@ -76,7 +76,7 @@ public class ElytraHandler {
 
                 // Get and transfer durability
                 if (meta instanceof Damageable) {
-                    ((Damageable) meta).setDamage(((Damageable) leathermeta).getDamage());
+                    ((Damageable) meta).setDamage(((Damageable) leatherMeta).getDamage());
                     meta.setUnbreakable(false);
                 }
                 elytra.setItemMeta(meta);
