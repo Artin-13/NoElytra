@@ -41,7 +41,11 @@ public class ElytraHandler {
 
                 // Set color, name, and lore
                 ((LeatherArmorMeta) meta).setColor(org.bukkit.Color.GRAY);
-                meta.setDisplayName("§8Closed Elytra");
+                if(elytraMeta.hasDisplayName()){
+                    meta.setDisplayName(elytraMeta.getDisplayName());
+                } else {
+                    meta.setDisplayName("§8Closed Elytra");
+                }
                 meta.setLore(Arrays.asList("Elytra are unusable in this dimension,", "Enter The End to reopen", String.format("§fDurability: %s/432", 432 - ((Damageable) elytraMeta).getDamage())));
                 leatherChestplate.setItemMeta(meta);
             }
@@ -73,7 +77,9 @@ public class ElytraHandler {
                         meta.addEnchant(enchantment, level, true);
                     }
                 }
-
+                if(!leatherMeta.getDisplayName().equals("§8Closed Elytra")) {
+                    meta.setDisplayName(leatherMeta.getDisplayName());
+                }
                 // Get and transfer durability
                 if (meta instanceof Damageable) {
                     ((Damageable) meta).setDamage(((Damageable) leatherMeta).getDamage());
